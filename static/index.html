@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Trading Summary</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <h1>Trading Summary (Total Volume)</h1>
+    <canvas id="volumeChart" width="600" height="300"></canvas>
+
+    <script>
+        async function fetchSummary() {
+            const res = await fetch('/symbols/summary');
+            return res.json();
+        }
+
+        fetchSummary().then(data => {
+            const ctx = document.getElementById('volumeChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: data.map(item => item.symbol),
+                    datasets: [{
+                        label: 'Total Volume',
+                        data: data.map(item => item.total_volume),
+                        backgroundColor: 'blue'
+                    }]
+                },
+                options: { scales: { y: { beginAtZero: true } } }
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,4 +1,5 @@
 from fastapi import FastAPI, HTTPException
+from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 from typing import List
 import sqlite3
@@ -60,3 +61,5 @@ def api_summary():
             "net_position": int(row["net_position"])
         })
     return result
+
+app.mount("/", StaticFiles(directory="static", html=True), name="static")
