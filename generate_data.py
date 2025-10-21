@@ -3,7 +3,7 @@ import numpy as np
 from datetime import datetime, timedelta, time
 import random
 
-# Configs
+# Configs & my constants
 STOCK_SYMBOLS = ["AAPL", "GOOG", "MSFT", "AMZN", "TSLA", "NFLX", "NVDA", "META"]
 NUM_DAYS = 45
 START_DATE = datetime(2024, 7, 1)
@@ -16,9 +16,11 @@ def random_time_in_market_hours():
     market_open = time(9, 30)
     market_close = time(16, 0)
 
+    # converting to seconds for easier random generation
     start_seconds = market_open.hour * 3600 + market_open.minute * 60
     end_seconds = market_close.hour * 3600 + market_close.minute * 60
     rand_seconds = random.randint(start_seconds, end_seconds)
+    # converting back to hours
     hours = rand_seconds // 3600
     minutes = (rand_seconds % 3600) // 60
     seconds = rand_seconds % 60
@@ -62,7 +64,7 @@ def generate_dataset(start_date, num_days, trades_per_day):
         day = start_date + timedelta(days=i)
         day_trades = generate_trades_for_day(day, trades_per_day)
         all_trades.extend(day_trades)
-    return pd.DataFrame(all_trades)
+    return pd.DataFrame(all_trades) # we return a pandas DataFrame
 
 # Main
 def main():
