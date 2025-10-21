@@ -1,3 +1,4 @@
+Setp 1 ---
 Start date: July 2024
 Number of simulated days : 45
 Number of trades per day: 500
@@ -5,3 +6,7 @@ Number of major tech symb: 8
 Trades timeframe: 9:30 - 16:00
 % of trades that have large quantities: 1%
 % of trades with big prices quantities: 1%
+
+Step2 ---
+Used SQLlite for faster prototype development
+Ran into a problem regarding Python 3.14 version and pyarrow, Changed to Python version 3.13.9 seems to fix the issue.
